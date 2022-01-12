@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ChatRoom</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel = "stylesheet" href="style.css">
+	
+    <style>
+        * { 
+	margin: 0; 
+	padding: 0; 
+	box-sizing: border-box; 
+}
+ 
+  #intro{
+ 	background-color: #008000;
+ 	color: #FFFFFF;
+ 	height: 5%;	
+ } 
+
+
+ body { 
+ 	font: 20px;
+}
+
+ 
+ 
+ form { 
+ 	background: #000000; 
+ 	padding: 3px; 
+ 	position: fixed; 
+ 	bottom: 5px; 
+ 	width: 100%; 
+ }
+ 
+ form input { 
+ 	background-color: #e6ffe6;
+ 	border: 0; 
+ 	padding: 10px; 
+ 	width: 90%; 
+ 	margin-right: 0.5%; 
+ }
+ 
+ form button { 
+ 	width: 9%; 
+ 	background: #00e600;
+ 	border: none; 
+ 	padding: 5px; 
+ 	font-size: 20px; 
+ }
+ 
+ #messages { 
+
+ 	margin: 0; 
+ 	padding: 0; 
+ 	
+ }
+ 
+ #messages li { 
+ 	padding: 5px 10px; 
+ }
+ 
+ #messages li:nth-child(odd) { 
+ 	background: #b3ffb3; 
+ }
+
+
+#list{
+	text-align: right;
+}
+    </style>
+</head>
+<body>
+    
+    <div id="intro">
+      <h1>ChatRoom</h1>
+    </div>
+    
+    <ul id="messages"></ul>
+    
+    <form action="">
+      <input id="m" placeholder="Enter your message..." autocomplete="off" required /><button>Send</button>
+    </form>
+
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script >const socket =io(`https://localhost:5000`);
+	const form = document.getElementById("send-container");
+	const message= document.getElementById("messages");
+	const intro = document.getElementById("intro");
+	const namee = prompt("entr your name");
+	socket.emit('userjoin',namee);
+	form.addEventListener('submit', (e)=>{
+		e.preventDefault();
+		const message = intro.value;
+		append(`You: ${messages}`);
+		socket.emit('send', messages);
+		messageInput.value = '';
+	})
+	socket.on('userjoined',namee=>{
+	
+		append("${namee} user joined",messages);
+	})
+	socket.on('receive', data=>{
+		append(`${data.namee }: ${data.messages}`);
+	})</script>
+</body>
+</html>
